@@ -24,8 +24,8 @@ db.once('open', () => {
 const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
-const exampleRouter = require('./routes/exampleRoutes');
-app.use('/example', exampleRouter);
+const codeBlockRouter = require('./routes/codeBlockRoutes');
+app.use('/codeBlock', codeBlockRouter);
 
 app.listen(port, () => {
 	console.log('Server is running on port ' + port);
