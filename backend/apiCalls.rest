@@ -1,0 +1,13 @@
+GET http://localhost:4000
+###
+GET http://localhost:4000/example
+###
+GET http://localhost:4000/example/63d837f703490273a396a2fa
+###
+POST http://localhost:4000/example 
+content-type: application/json
+
+{
+  "name": "Yarin",
+  "massage": "New Example"
+}
