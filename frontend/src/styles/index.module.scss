@@ -1,13 +1,24 @@
 .lobbyContainer {
-  margin-top: 40px;
   text-align: center;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 
   h1 {
-    font-size: 40px;
+    font-size: 60px;
   }
 
   p {
     margin-top: 20px;
     font-size: 25px;
+  }
+
+  .codeBlockList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 100px;
+    gap: 20px;
   }
 }

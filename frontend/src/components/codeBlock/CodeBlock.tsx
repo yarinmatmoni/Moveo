@@ -1,12 +1,15 @@
 import React from 'react';
-import style from './CodeBLock.module.scss';
+import Link from 'next/link';
+import style from './CodeBlock.module.scss'
 
-function CodeBlock() {
+function CodeBlock({ title, href }: { title: string, href: string }) {
   return (
-    <div className={style.codeBlockContainer}>
-      <h2>title</h2>
-    </div>
-  )
+    <Link href={href} target='_blank' rel="noreferrer">
+      <div className={style.codeBlockContainer}>
+        <h2>{title}</h2>
+      </div>
+    </Link>
+  );
 }
 
 export default CodeBlock;

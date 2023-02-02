@@ -23,8 +23,10 @@ export default function Home() {
       <h1>Lobby</h1>
       <p>Choose code block</p>
       <div className={style.codeBlockList}>
-        {codeBlockList?.map((codeBlock: blockCodeType) => <CodeBlock key={codeBlock._id} />)}
+        {codeBlockList?.map((codeBlock: blockCodeType) => (
+          <CodeBlock key={codeBlock._id} title={codeBlock.title} href={codeBlock.href} />
+        ))}
       </div>
     </div>
-  )
+  );
 }
