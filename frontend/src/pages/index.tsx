@@ -11,6 +11,7 @@ export default function Home() {
     fetch('http://localhost:4000/codeBlock')
       .then((res) => res.json())
       .then((data) => setCodeBlockList(data.data));
+
   }, []);
 
   return (

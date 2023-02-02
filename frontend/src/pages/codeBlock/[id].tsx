@@ -1,8 +1,12 @@
-import React, { ChangeEvent, TextareaHTMLAttributes, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Head from 'next/head';
 import style from '../../styles/codeBlockPage.module.scss';
 import { blockCodeType } from '../../types/types';
 
+import * as io from "socket.io-client";
+const socket = io.connect("http://localhost:4000");
+
+//FIXME: type - any + url 
 export async function getServerSideProps(context: any) {
   const { params } = context;
   const response = await fetch(`http://localhost:4000/codeBlock/${params.id}`);
@@ -16,13 +20,15 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-//FIXME: type - any
 function CodeBlock({ codeBlock }: any) {
   const [code, setCode] = useState(codeBlock.code);
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCode(e.target.value);
   };
+
+  //FIXME: 
+  // socket.emit('numberOfUsers', { data: 'hello' });
 
   return (
     <div className={style.codeBlockPage}>
