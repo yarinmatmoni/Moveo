@@ -3,7 +3,7 @@ const CodeBlock = require('../models/blockCodeModel');
 const getCodeBlocksList = async (req, res) => {
 	try {
 		const blockCodesList = await CodeBlock.find();
-		res.status(200).send(blockCodesList);
+		res.status(200).send({ data: blockCodesList });
 	} catch (error) {
 		res.status(400).send({
 			status: 'Fail',
@@ -22,7 +22,7 @@ const getCodeBlockById = async (req, res) => {
 
 	try {
 		const codeBlock = await CodeBlock.findById(req.params.id);
-		res.status(200).send(codeBlock);
+		res.status(200).send({ data: codeBlock });
 	} catch (error) {
 		res.status(400).send({
 			status: 'Fail',

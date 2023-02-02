@@ -3,10 +3,15 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const app = express();
+const cors = require('cors');
+
 const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(bodyParser.json());
+
+// allows resources to be requested from another domain
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 // connect to mongoDB
 mongoose.set('strictQuery', false);
