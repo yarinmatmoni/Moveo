@@ -1,28 +1,28 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-const app = express();
 const cors = require('cors');
-const server = require('http').Server(app);
 const port = process.env.PORT;
+const express = require('express');
+const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
-var io = require('socket.io')(server, {
-	cors: {
-		origin: 'http://localhost:3000/',
-		methods: ['GET', 'POST'],
-	},
-});
-
-//FIXME: fix connection
+let clientCount = -1;
 
 io.on('connection', (socket) => {
-	console.log('clients connected');
+	console.log('a user connected');
+	clientCount++;
+	io.emit('clientCount', clientCount);
+
+	socket.on('disconnect', () => {
+		console.log('user disconnected');
+		clientCount--;
+		io.emit('clientCount', clientCount);
+	});
 });
 
-// io.on('connection', (socket) => {
-// 	socket.on('numberOfUsers', (data) => console.log(data));
-// });
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(bodyParser.json());
@@ -45,6 +45,6 @@ app.use('/', indexRouter);
 const codeBlockRouter = require('./routes/codeBlockRoutes');
 app.use('/codeBlock', codeBlockRouter);
 
-server.listen(port, () => {
+http.listen(port, () => {
 	console.log('Server is running on port ' + port);
 });

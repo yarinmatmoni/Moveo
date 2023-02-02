@@ -3,9 +3,6 @@ import Head from 'next/head';
 import style from '../../styles/codeBlockPage.module.scss';
 import { blockCodeType } from '../../types/types';
 
-import * as io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
-
 //FIXME: type - any + url 
 export async function getServerSideProps(context: any) {
   const { params } = context;
@@ -26,9 +23,6 @@ function CodeBlock({ codeBlock }: any) {
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCode(e.target.value);
   };
-
-  //FIXME: 
-  // socket.emit('numberOfUsers', { data: 'hello' });
 
   return (
     <div className={style.codeBlockPage}>
