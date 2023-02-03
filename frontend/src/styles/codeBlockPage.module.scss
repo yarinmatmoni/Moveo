@@ -1,3 +1,5 @@
+@import './colors.module.scss';
+
 .codeBlockPage {
   margin-top: 100px;
   text-align: center;
@@ -12,7 +14,8 @@
     resize: none;
     padding: 15px;
     outline: none;
-    border: 2px solid rgb(98, 98, 98);
+    border: 3px solid $border-color;
+    border-radius: 8px;
     font-size: 16px;
   }
 }

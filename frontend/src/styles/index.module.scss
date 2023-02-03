@@ -1,3 +1,5 @@
+@import './colors.module.scss';
+
 .lobbyContainer {
   text-align: center;
   height: 100vh;
@@ -5,13 +7,10 @@
   display: flex;
   flex-direction: column;
 
-  h1 {
-    font-size: 60px;
-  }
-
   p {
     margin-top: 20px;
     font-size: 25px;
+    color: $text-subtitle-color;
   }
 
   .codeBlockList {
