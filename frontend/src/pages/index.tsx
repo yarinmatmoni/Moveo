@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import style from '../styles/index.module.scss';
+import style from './index.module.scss';
 import CodeBlock from '../components/codeBlock/CodeBlock';
 import { blockCodeType } from '../types/types';
 
@@ -17,7 +17,6 @@ export default function Home() {
     <div className={style.lobbyContainer}>
       <Head>
         <title>Looby</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Looby</h1>
       <p>Choose code block</p>

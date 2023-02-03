@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Head from 'next/head';
-import style from '../../styles/codeBlockPage.module.scss';
+import style from './codeBlockPage.module.scss';
 import io from 'socket.io-client';
 import { blockCodeType } from '../../types/types';
 
@@ -26,7 +26,7 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-function CodeBlock({ codeBlock }: any) {
+function CodeBlockPage({ codeBlock }: any) {
   const [code, setCode] = useState(codeBlock.code);
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -50,4 +50,4 @@ function CodeBlock({ codeBlock }: any) {
   );
 }
 
-export default CodeBlock;
+export default CodeBlockPage;

@@ -3,12 +3,3 @@ GET http://localhost:4000
 GET http://localhost:4000/codeBlock
 ###
 GET http://localhost:4000/codeBlock/asyncCase
-###
-POST http://localhost:4000/codeBlock 
-content-type: application/json
-
-{
-  "title": "For Loop",
-  "code": "code .....",
-  "href": "/forLoop"
-}

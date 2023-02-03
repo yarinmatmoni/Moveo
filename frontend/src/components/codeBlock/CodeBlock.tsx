@@ -6,7 +6,7 @@ function CodeBlock({ title, href }: { title: string; href: string }) {
   return (
     <Link href={href} className={style.link}>
       <div className={style.codeBlockContainer}>
-        <h2>{title}</h2>
+        <p>{title}</p>
       </div>
     </Link>
   );
