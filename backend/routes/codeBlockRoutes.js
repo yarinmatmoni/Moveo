@@ -4,7 +4,7 @@ const CodeBlock = require('../controllers/blockCode');
 
 router.get('/', CodeBlock.getCodeBlocksList);
 
-router.get('/:id', CodeBlock.getCodeBlockById);
+router.get('/:title', CodeBlock.getCodeBlockByName);
 
 router.post('/', CodeBlock.newCodeBlock);
 

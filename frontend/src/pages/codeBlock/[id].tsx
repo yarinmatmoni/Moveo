@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import { blockCodeType } from '../../types/types';
 
 const socket = io('http://localhost:4000', { transports: ['websocket'], });
+
 /* ************************************************************************************ */
 socket.on('clientCount', (count) => {
   console.log('Number of clients:', count);
