@@ -1,22 +1,19 @@
+require('dotenv').config();
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv').config();
 const cors = require('cors');
 const port = process.env.PORT;
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const dataBase = require('./db');
+const initialDB = require('./db');
 
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(bodyParser.json());
 
-dataBase();
-
-const indexRouter = require('./routes/index');
-app.use('/', indexRouter);
+initialDB();
 
 const codeBlockRouter = require('./routes/codeBlockRoutes');
 app.use('/codeBlock', codeBlockRouter);

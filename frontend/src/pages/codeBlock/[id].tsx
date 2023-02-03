@@ -4,7 +4,7 @@ import style from '../../styles/codeBlockPage.module.scss';
 import io from 'socket.io-client';
 import { blockCodeType } from '../../types/types';
 
-const socket = io('http://localhost:4000', { transports: ['websocket'], });
+const socket = io('http://localhost:4000', { transports: ['websocket'] });
 
 /* ************************************************************************************ */
 socket.on('clientCount', (count) => {
@@ -12,7 +12,7 @@ socket.on('clientCount', (count) => {
 });
 /* ************************************************************************************ */
 
-//FIXME: type - any + url 
+//FIXME: type - any + url
 export async function getServerSideProps(context: any) {
   const { params } = context;
   const response = await fetch(`http://localhost:4000/codeBlock/${params.id}`);

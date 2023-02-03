@@ -19,7 +19,7 @@ export default function Home() {
         <title>Looby</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Lobby</h1>
+      <h1>Looby</h1>
       <p>Choose code block</p>
       <div className={style.codeBlockList}>
         {codeBlockList?.map((codeBlock: blockCodeType) => (

@@ -4,7 +4,7 @@ import style from './CodeBlock.module.scss';
 
 function CodeBlock({ title, href }: { title: string; href: string }) {
   return (
-    <Link href={href} target="_blank">
+    <Link href={href} className={style.link}>
       <div className={style.codeBlockContainer}>
         <h2>{title}</h2>
       </div>
