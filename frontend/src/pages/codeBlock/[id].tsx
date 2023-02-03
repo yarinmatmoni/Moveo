@@ -1,7 +1,15 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import Head from 'next/head';
 import style from '../../styles/codeBlockPage.module.scss';
+import io from 'socket.io-client';
 import { blockCodeType } from '../../types/types';
+
+const socket = io('http://localhost:4000', { transports: ['websocket'], });
+/* ************************************************************************************ */
+socket.on('clientCount', (count) => {
+  console.log('Number of clients:', count);
+});
+/* ************************************************************************************ */
 
 //FIXME: type - any + url 
 export async function getServerSideProps(context: any) {
@@ -22,7 +30,12 @@ function CodeBlock({ codeBlock }: any) {
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCode(e.target.value);
+    socket.emit('codeChange', { data: e.target.value });
   };
+
+  socket.on('sendEditCode', (data) => {
+    setCode(data.data);
+  });
 
   return (
     <div className={style.codeBlockPage}>

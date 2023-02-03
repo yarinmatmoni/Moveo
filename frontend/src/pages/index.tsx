@@ -3,13 +3,6 @@ import Head from 'next/head';
 import style from '../styles/index.module.scss';
 import CodeBlock from '../components/codeBlock/CodeBlock';
 import { blockCodeType } from '../types/types';
-import io from 'socket.io-client';
-
-const socket = io('http://localhost:4000', { transports: ['websocket'], });
-
-socket.on('clientCount', (count) => {
-  console.log('Number of clients:', count);
-});
 
 export default function Home() {
   const [codeBlockList, setCodeBlockList] = useState<blockCodeType[]>([]);
@@ -18,7 +11,6 @@ export default function Home() {
     fetch('http://localhost:4000/codeBlock')
       .then((res) => res.json())
       .then((data) => setCodeBlockList(data.data));
-
   }, []);
 
   return (
