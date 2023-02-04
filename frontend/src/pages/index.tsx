@@ -11,9 +11,9 @@ export default function Home() {
     const codeBlockListResponse = await fetch('http://localhost:4000/codeBlock');
     if (codeBlockListResponse.ok) {
       const codeBlockListBody = await codeBlockListResponse.json();
-      setCodeBlockList(codeBlockListBody.data)
+      setCodeBlockList(codeBlockListBody.data);
     }
-  }
+  };
 
   useEffect(() => {
     getCodeBlockList();

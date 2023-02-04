@@ -10,6 +10,6 @@ function CodeBlockList({ data }: { data: BlockCodeType[] }) {
         <CodeBlock key={codeBlock.id} title={codeBlock.title} href={codeBlock.href} />
       ))}
     </div>
-  )
+  );
 }
 export default CodeBlockList;

@@ -22,7 +22,7 @@ app.use('/codeBlock', codeBlockRouter);
 //FIXME: recognize who is the mentor an who is the student
 
 io.on('connection', (socket) => {
-	console.log('a user connected' + io.engine.clientsCount);
+	console.log(io.engine.clientsCount);
 	io.emit('clientCount', io.engine.clientsCount);
 
 	// listen to change from page one and emit for the second page

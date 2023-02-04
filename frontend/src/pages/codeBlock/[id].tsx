@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import style from './codeBlockPage.module.scss';
 import io from 'socket.io-client';
 import Header from '../../components/header/Header';
-
 import dynamic from "next/dynamic";
 import "@uiw/react-textarea-code-editor/dist.css";
 
@@ -55,16 +54,14 @@ function CodeBlockPage({ codeBlock }: any) {
 
   return (
     <div className={style.codeBlockPage}>
-      <Header tabName={`BLock Code - ${codeBlock.title}`} title={codeBlock.title} />
+      <Header tabName={`BLock Code - ${codeBlock.title}`} title={codeBlock.title} subTitle={counter === 1 ? 'Mentor Panel' : 'Student Panel'} />
       <CodeEditor
         value={code}
         language="js"
         onChange={handleCodeChange}
-        padding={15}
-        style={{
-          fontSize: 15,
-          backgroundColor: "#fffefe",
-        }}
+        padding={25}
+        className={style.codeEditor}
+        readOnly={counter === 1 ? true : false}
       />
     </div>
   );
