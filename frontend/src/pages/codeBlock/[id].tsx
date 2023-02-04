@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
-import Head from 'next/head';
 import style from './codeBlockPage.module.scss';
 import io from 'socket.io-client';
-import { blockCodeType } from '../../types/types';
+import Header from '../../components/header/Header';
 
 const socket = io('http://localhost:4000', { transports: ['websocket'] });
 
@@ -12,7 +11,7 @@ socket.on('clientCount', (count) => {
 });
 /* ************************************************************************************ */
 
-//FIXME: type - any 
+//FIXME: type - any
 export async function getServerSideProps(context: any) {
   const { params } = context;
   const response = await fetch(`http://localhost:4000/codeBlock/${params.id}`);
@@ -40,11 +39,7 @@ function CodeBlockPage({ codeBlock }: any) {
 
   return (
     <div className={style.codeBlockPage}>
-      <Head>
-        <title>{`BLock Code - ${codeBlock.title}`}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <h1>{codeBlock.title}</h1>
+      <Header tabName={`BLock Code - ${codeBlock.title}`} title={codeBlock.title} />
       <textarea value={code} onChange={handleCodeChange} />
     </div>
   );

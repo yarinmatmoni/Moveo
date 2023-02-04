@@ -1,22 +1,22 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const codeBlockSchema = new mongoose.Schema({
-	id: {
-		type: 'string',
-		required: true,
-	},
-	title: {
-		type: 'string',
-		required: true,
-	},
-	code: {
-		type: 'string',
-		required: true,
-	},
-	href: {
-		type: 'string',
-		required: true,
-	},
+  id: {
+    type: "string",
+    required: true,
+  },
+  title: {
+    type: "string",
+    required: true,
+  },
+  code: {
+    type: "string",
+    required: true,
+  },
+  href: {
+    type: "string",
+    required: true,
+  },
 });
 
-module.exports = mongoose.model('CodeBlock', codeBlockSchema);
+module.exports = mongoose.model("CodeBlock", codeBlockSchema);

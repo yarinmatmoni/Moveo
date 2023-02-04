@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
 import style from './index.module.scss';
-import CodeBlock from '../components/codeBlock/CodeBlock';
-import { blockCodeType } from '../types/types';
+import { BlockCodeType } from '../types/types';
+import CodeBlockList from '../components/codeBlockList/CodeBlockList';
+import Header from '../components/header/Header';
 
 export default function Home() {
-  const [codeBlockList, setCodeBlockList] = useState<blockCodeType[]>([]);
+  const [codeBlockList, setCodeBlockList] = useState<BlockCodeType[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:4000/codeBlock')
@@ -15,16 +15,8 @@ export default function Home() {
 
   return (
     <div className={style.lobbyContainer}>
-      <Head>
-        <title>Looby</title>
-      </Head>
-      <h1>Looby</h1>
-      <p>Choose code block</p>
-      <div className={style.codeBlockList}>
-        {codeBlockList?.map((codeBlock: blockCodeType) => (
-          <CodeBlock key={codeBlock.id} title={codeBlock.title} href={codeBlock.href} />
-        ))}
-      </div>
+      <Header tabName={'Looby'} title={'Looby'} subTitle={'Choose code block'} />
+      <CodeBlockList data={codeBlockList} />
     </div>
   );
 }
