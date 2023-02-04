@@ -7,10 +7,16 @@ import Header from '../components/header/Header';
 export default function Home() {
   const [codeBlockList, setCodeBlockList] = useState<BlockCodeType[]>([]);
 
+  const getCodeBlockList = async () => {
+    const codeBlockListResponse = await fetch('http://localhost:4000/codeBlock');
+    if (codeBlockListResponse.ok) {
+      const codeBlockListBody = await codeBlockListResponse.json();
+      setCodeBlockList(codeBlockListBody.data)
+    }
+  }
+
   useEffect(() => {
-    fetch('http://localhost:4000/codeBlock')
-      .then((res) => res.json())
-      .then((data) => setCodeBlockList(data.data));
+    getCodeBlockList();
   }, []);
 
   return (

@@ -1,17 +1,16 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import style from './codeBlockPage.module.scss';
 import io from 'socket.io-client';
 import Header from '../../components/header/Header';
 
-const socket = io('http://localhost:4000', { transports: ['websocket'] });
+import dynamic from "next/dynamic";
+import "@uiw/react-textarea-code-editor/dist.css";
 
-/* ************************************************************************************ */
-socket.on('clientCount', (count) => {
-  console.log('Number of clients:', count);
-});
-/* ************************************************************************************ */
+const CodeEditor = dynamic(
+  () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
+  { ssr: false }
+);
 
-//FIXME: type - any
 export async function getServerSideProps(context: any) {
   const { params } = context;
   const response = await fetch(`http://localhost:4000/codeBlock/${params.id}`);
@@ -27,20 +26,46 @@ export async function getServerSideProps(context: any) {
 
 function CodeBlockPage({ codeBlock }: any) {
   const [code, setCode] = useState(codeBlock.code);
+  const [counter, setCounter] = useState();
+  const [socket, setSocket] = useState<any>(null);
+
+  useEffect((): any => {
+    const s = io('http://localhost:4000', { transports: ['websocket'] });
+    setSocket(s);
+
+    return () => s.disconnect();
+  }, [setSocket]);
+
+  if (socket) {
+    socket.on('clientCount', (count: any) => {
+      setCounter(count);
+    });
+
+    socket.on('sendEditCode', (data: any) => {
+      setCode(data.data);
+    });
+  }
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCode(e.target.value);
     socket.emit('codeChange', { data: e.target.value });
   };
 
-  socket.on('sendEditCode', (data) => {
-    setCode(data.data);
-  });
+  console.log(counter)
 
   return (
     <div className={style.codeBlockPage}>
       <Header tabName={`BLock Code - ${codeBlock.title}`} title={codeBlock.title} />
-      <textarea value={code} onChange={handleCodeChange} />
+      <CodeEditor
+        value={code}
+        language="js"
+        onChange={handleCodeChange}
+        padding={15}
+        style={{
+          fontSize: 15,
+          backgroundColor: "#fffefe",
+        }}
+      />
     </div>
   );
 }
