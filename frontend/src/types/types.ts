@@ -1,5 +1,5 @@
 export type blockCodeType = {
-  _id: string;
+  id: string;
   title: string;
   code: string;
   href: string;

@@ -12,8 +12,8 @@ const getCodeBlocksList = async (req, res) => {
 	}
 };
 
-const getCodeBlockByName = async (req, res) => {
-	if (req.params.title === null || req.params.title === undefined) {
+const getCodeBlockById = async (req, res) => {
+	if (req.params.id === null || req.params.id === undefined) {
 		res.status(400).send({
 			status: 'Fail',
 			error: error.message,
@@ -21,7 +21,7 @@ const getCodeBlockByName = async (req, res) => {
 	}
 
 	try {
-		const codeBlock = await CodeBlock.findOne({ title: req.params.title });
+		const codeBlock = await CodeBlock.findOne({ id: req.params.id });
 		res.status(200).send({ data: codeBlock });
 	} catch (error) {
 		res.status(400).send({
@@ -31,4 +31,4 @@ const getCodeBlockByName = async (req, res) => {
 	}
 };
 
-module.exports = { getCodeBlocksList, getCodeBlockByName };
+module.exports = { getCodeBlocksList, getCodeBlockById };

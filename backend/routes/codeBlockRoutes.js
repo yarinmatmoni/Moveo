@@ -4,6 +4,6 @@ const CodeBlock = require('../controllers/blockCode');
 
 router.get('/', CodeBlock.getCodeBlocksList);
 
-router.get('/:title', CodeBlock.getCodeBlockByName);
+router.get('/:id', CodeBlock.getCodeBlockById);
 
 module.exports = router;

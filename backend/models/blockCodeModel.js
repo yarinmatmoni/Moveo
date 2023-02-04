@@ -20,5 +20,3 @@ const codeBlockSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('CodeBlock', codeBlockSchema);
-
-//TODO: i already add id to model, now need to fix getCodeBlockByName

@@ -22,7 +22,7 @@ export default function Home() {
       <p>Choose code block</p>
       <div className={style.codeBlockList}>
         {codeBlockList?.map((codeBlock: blockCodeType) => (
-          <CodeBlock key={codeBlock._id} title={codeBlock.title} href={codeBlock.href} />
+          <CodeBlock key={codeBlock.id} title={codeBlock.title} href={codeBlock.href} />
         ))}
       </div>
     </div>

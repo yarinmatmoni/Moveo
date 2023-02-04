@@ -12,7 +12,7 @@ socket.on('clientCount', (count) => {
 });
 /* ************************************************************************************ */
 
-//FIXME: type - any + url
+//FIXME: type - any 
 export async function getServerSideProps(context: any) {
   const { params } = context;
   const response = await fetch(`http://localhost:4000/codeBlock/${params.id}`);
