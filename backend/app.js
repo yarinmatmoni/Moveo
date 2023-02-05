@@ -20,10 +20,6 @@ app.use(bodyParser.json());
 
 initialDB();
 
-app.get('/test', (req, res) => {
-	res.send('deploy server');
-});
-
 const codeBlockRouter = require('./routes/codeBlockRoutes');
 app.use('/codeBlock', codeBlockRouter);
 
