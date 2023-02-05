@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 const data = require('./constants');
 
+let connectionString = '';
+
 if (process.env.NODE_ENV === 'production') {
-	mongoose.createConnection(process.env.DATABASE_URL_PRODUCTION);
+	connectionString = process.env.DATABASE_URL_PRODUCTION;
 } else {
-	mongoose.createConnection(process.env.DATABASE_URL_PRODUCTION);
+	connectionString = process.env.DATABASE_URL;
 }
+
+const connection = mongoose.createConnection(connectionString);
 
 const initialDB = async () => {
 	await connection.on('open', function () {
