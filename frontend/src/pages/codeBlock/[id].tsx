@@ -2,13 +2,10 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import style from './codeBlockPage.module.scss';
 import io from 'socket.io-client';
 import Header from '../../components/header/Header';
-import dynamic from "next/dynamic";
-import "@uiw/react-textarea-code-editor/dist.css";
+import dynamic from 'next/dynamic';
+import '@uiw/react-textarea-code-editor/dist.css';
 
-const CodeEditor = dynamic(
-  () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
-  { ssr: false }
-);
+const CodeEditor = dynamic(() => import('@uiw/react-textarea-code-editor').then((mod) => mod.default), { ssr: false });
 
 export async function getServerSideProps(context: any) {
   const { params } = context;
@@ -25,43 +22,45 @@ export async function getServerSideProps(context: any) {
 
 function CodeBlockPage({ codeBlock }: any) {
   const [code, setCode] = useState(codeBlock.code);
-  const [counter, setCounter] = useState();
-  const [socket, setSocket] = useState<any>(null);
+  const [users, setUsers] = useState<number>();
 
-  useEffect((): any => {
-    const s = io('http://localhost:4000', { transports: ['websocket'] });
-    setSocket(s);
+  useEffect(() => {
+    const socket = io('http://localhost:4000', { transports: ['websocket'] });
 
-    return () => s.disconnect();
-  }, [setSocket]);
-
-  if (socket) {
-    socket.on('clientCount', (count: any) => {
-      setCounter(count);
+    socket.on('clientsCounter', (data: number) => {
+      setUsers(data);
     });
 
-    socket.on('sendEditCode', (data: any) => {
-      setCode(data.data);
+    socket.on('sendEditCode', (data: string) => {
+      setCode(data);
     });
-  }
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setCode(e.target.value);
+    const newCode = e.target.value;
+    setCode(newCode);
+    const socket = io('http://localhost:4000', { transports: ['websocket'] });
     socket.emit('codeChange', { data: e.target.value });
   };
 
-  console.log(counter)
-
   return (
     <div className={style.codeBlockPage}>
-      <Header tabName={`BLock Code - ${codeBlock.title}`} title={codeBlock.title} subTitle={counter === 1 ? 'Mentor Panel' : 'Student Panel'} />
+      <Header
+        tabName={codeBlock.title}
+        title={codeBlock.title}
+        subTitle={users === 1 ? 'Mentor Panel' : 'Student Panel'}
+      ></Header>
       <CodeEditor
         value={code}
         language="js"
         onChange={handleCodeChange}
         padding={25}
         className={style.codeEditor}
-        readOnly={counter === 1 ? true : false}
+        readOnly={users === 1 ? true : false}
       />
     </div>
   );

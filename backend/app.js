@@ -1,43 +1,43 @@
-require('dotenv').config();
-const bodyParser = require('body-parser');
-const cors = require('cors');
+require("dotenv").config();
+const bodyParser = require("body-parser");
 const port = process.env.PORT;
-const express = require('express');
+const express = require("express");
 const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
-const initialDB = require('./db');
+const http = require("http");
+const { Server } = require("socket.io");
+const server = http.createServer(app);
+const initialDB = require("./db");
 
-app.use(cors());
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET"],
+  },
+});
 
-app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "1mb" }));
 app.use(bodyParser.json());
 
 initialDB();
 
-const codeBlockRouter = require('./routes/codeBlockRoutes');
-app.use('/codeBlock', codeBlockRouter);
+const codeBlockRouter = require("./routes/codeBlockRoutes");
+app.use("/codeBlock", codeBlockRouter);
 
-/* ************************************************************************************ */
-//FIXME: recognize who is the mentor an who is the student
+let numOfClients = 0;
 
-io.on('connection', (socket) => {
-	console.log(io.engine.clientsCount);
-	io.emit('clientCount', io.engine.clientsCount);
+io.on("connection", (socket) => {
+  numOfClients += 1;
+  socket.emit("clientsCounter", numOfClients);
 
-	// listen to change from page one and emit for the second page
-	socket.on('codeChange', (data) => {
-		socket.broadcast.emit('sendEditCode', data);
-	});
+  socket.on("disconnect", () => {
+    numOfClients -= 1;
+  });
 
-	socket.on('disconnect', () => {
-		console.log('user disconnected' + io.engine.clientsCount);
-		io.emit('clientCount', io.engine.clientsCount);
-	});
+  socket.on("codeChange", (data) => {
+    io.emit("sendEditCode", data.data);
+  });
 });
 
-/* ************************************************************************************ */
-
-http.listen(port, () => {
-	console.log('Server is running on port ' + port);
+server.listen(port, () => {
+  console.log("Server is running on port " + port);
 });
