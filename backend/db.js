@@ -33,7 +33,7 @@ const initialDB = async () => {
 };
 
 mongoose.set('strictQuery', false);
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.connect(connectionString);
 
 const db = mongoose.connection;
 db.on('error', (error) => {
