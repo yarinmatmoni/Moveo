@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import Header from '../../components/header/Header';
 import dynamic from 'next/dynamic';
 import '@uiw/react-textarea-code-editor/dist.css';
+import type { BlockCodeType } from '../../types/types';
 
 const CodeEditor = dynamic(() => import('@uiw/react-textarea-code-editor').then((mod) => mod.default), { ssr: false });
 
@@ -20,7 +21,7 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-function CodeBlockPage({ codeBlock }: any) {
+function CodeBlockPage({ codeBlock }: { codeBlock: BlockCodeType }) {
   const [code, setCode] = useState(codeBlock.code);
   const [users, setUsers] = useState<number>();
 
@@ -52,16 +53,18 @@ function CodeBlockPage({ codeBlock }: any) {
       <Header
         tabName={codeBlock.title}
         title={codeBlock.title}
-        subTitle={users === 1 ? 'Mentor Panel' : 'Student Panel'}
+        subTitle={users === 1 ? 'Mentor Panel - (Read Only)' : 'Student Panel'}
       ></Header>
-      <CodeEditor
-        value={code}
-        language="js"
-        onChange={handleCodeChange}
-        padding={25}
-        className={style.codeEditor}
-        readOnly={users === 1 ? true : false}
-      />
+      <div className={style.codeEditorContainer}>
+        <CodeEditor
+          value={code}
+          language="js"
+          onChange={handleCodeChange}
+          padding={25}
+          className={style.codeEditor}
+          readOnly={users === 1 ? true : false}
+        />
+      </div>
     </div>
   );
 }

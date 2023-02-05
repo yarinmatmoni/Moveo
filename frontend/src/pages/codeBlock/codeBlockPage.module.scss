@@ -15,10 +15,12 @@
     color: $text-subtitle-color;
   }
 
-  .codeEditor {
-    background-color: white;
-    width: 600px;
-    font-size: 16px;
-    max-height: 50%;
+  .codeEditorContainer {
+    width: 80%;
+
+    .codeEditor {
+      background-color: white;
+      font-size: 16px;
+    }
   }
 }
