@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import type { HeaderType } from '../../types/types';
 
-function Header({ tabName, title, subTitle }: HeaderType) {
+export const Header = ({ tabName, title, subTitle }: HeaderType) => {
   return (
     <div>
       <Head>
@@ -13,5 +13,3 @@ function Header({ tabName, title, subTitle }: HeaderType) {
     </div>
   );
 }
-
-export default Header;

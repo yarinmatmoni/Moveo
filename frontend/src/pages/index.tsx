@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import style from './index.module.scss';
 import { BlockCodeType } from '../types/types';
-import CodeBlockList from '../components/codeBlockList/CodeBlockList';
-import Header from '../components/header/Header';
+import { CodeBlockList } from '../components/codeBlockList/CodeBlockList';
+import { Header } from '../components/header/Header';
 import { getServerUrl } from '../common/function';
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
     const codeBlockListResponse = await fetch(`${getServerUrl()}/codeBlock`);
     if (codeBlockListResponse.ok) {
       const codeBlockListBody = await codeBlockListResponse.json();
-      setCodeBlockList(codeBlockListBody.data);
+      setCodeBlockList(codeBlockListBody?.data);
     }
   };
 
@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <div className={style.lobbyContainer}>
-      <Header tabName={'Looby'} title={'Looby'} subTitle={'Choose code block'} />
+      <Header tabName={'Lobby'} title={'Lobby'} subTitle={'Choose code block'} />
       <CodeBlockList data={codeBlockList} />
     </div>
   );

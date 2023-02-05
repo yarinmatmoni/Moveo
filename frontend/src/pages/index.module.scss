@@ -7,8 +7,11 @@
   display: flex;
   flex-direction: column;
 
+  h1 {
+    margin-bottom: 20px;
+  }
+
   p {
-    margin-top: 20px;
     font-size: 25px;
     color: $text-subtitle-color;
   }

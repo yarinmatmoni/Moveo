@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import style from './codeBlockPage.module.scss';
 import io from 'socket.io-client';
-import Header from '../../components/header/Header';
+import { Header } from '../../components/header/Header';
 import dynamic from 'next/dynamic';
 import '@uiw/react-textarea-code-editor/dist.css';
 import { getServerUrl } from '../../common/function';
@@ -16,7 +16,7 @@ export async function getServerSideProps(context: any) {
   // will be passed to the page component as props
   return {
     props: {
-      codeBlock: data.data,
+      codeBlock: data?.data,
     },
   };
 }
@@ -53,7 +53,7 @@ function CodeBlockPage({ codeBlock }: any) {
       <Header
         tabName={codeBlock.title}
         title={codeBlock.title}
-        subTitle={users === 1 ? 'Mentor Panel' : 'Student Panel'}
+        subTitle={`${users === 1 ? 'Mentor' : 'Student'} Panel`}
       ></Header>
       <CodeEditor
         value={code}
@@ -61,7 +61,7 @@ function CodeBlockPage({ codeBlock }: any) {
         onChange={handleCodeChange}
         padding={25}
         className={style.codeEditor}
-        readOnly={users === 1 ? true : false}
+        readOnly={users === 1}
       />
     </div>
   );
