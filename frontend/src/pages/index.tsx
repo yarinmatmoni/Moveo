@@ -3,12 +3,13 @@ import style from './index.module.scss';
 import { BlockCodeType } from '../types/types';
 import CodeBlockList from '../components/codeBlockList/CodeBlockList';
 import Header from '../components/header/Header';
+import { getServerUrl } from '../common/function';
 
 export default function Home() {
   const [codeBlockList, setCodeBlockList] = useState<BlockCodeType[]>([]);
 
   const getCodeBlockList = async () => {
-    const codeBlockListResponse = await fetch('http://localhost:4000/codeBlock');
+    const codeBlockListResponse = await fetch(`${getServerUrl()}/codeBlock`);
     if (codeBlockListResponse.ok) {
       const codeBlockListBody = await codeBlockListResponse.json();
       setCodeBlockList(codeBlockListBody.data);

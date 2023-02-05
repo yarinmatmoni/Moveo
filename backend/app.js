@@ -7,13 +7,10 @@ const http = require('http');
 const { Server } = require('socket.io');
 const server = http.createServer(app);
 const initialDB = require('./db');
+const cors = require('cors');
 
-const io = new Server(server, {
-	cors: {
-		origin: 'http://localhost:3000',
-		methods: ['GET'],
-	},
-});
+app.use(cors());
+const io = new Server(server);
 
 app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(bodyParser.json());
