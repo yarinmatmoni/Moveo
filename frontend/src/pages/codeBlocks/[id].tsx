@@ -25,28 +25,49 @@ export async function getServerSideProps(context: any) {
 function CodeBlockPage({ codeBlock }: any) {
   const [code, setCode] = useState(codeBlock.code);
   const [users, setUsers] = useState<number>();
+  const socketUrl = getServerUrl();
+
+  const [socket, setSocket] = useState(io(`${socketUrl}`, { transports: ['websocket'] }));
 
   useEffect(() => {
-    const socketUrl = getServerUrl();
-    const socket = io(`${socketUrl}`, { transports: ['websocket'] });
-
-    socket.on('clientsCounter', (data: number) => {
-      setUsers(data);
-    });
-
-    socket.on('sendEditCode', (data: string) => {
-      setCode(data);
-    });
-
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [socket]);
+
+
+  socket.on('clientsCounter', (data: number) => {
+    setUsers(data);
+  });
+
+  socket.on('sendEditCode', (data: string) => {
+    // setCode(data);
+    // console.log(data);
+    if (users !== 1) {
+      setCode(data);
+    }
+  });
+
+
+  // useEffect(() => {
+  //   const socketUrl = getServerUrl();
+  //   const socket = io(`${socketUrl}`, { transports: ['websocket'] });
+
+  //   socket.on('clientsCounter', (data: number) => {
+  //     setUsers(data);
+  //   });
+
+  //   socket.on('sendEditCode', (data: string) => {
+  //     setCode(data);
+  //   });
+
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const socketUrl = getServerUrl();
-    const socket = io(`${socketUrl}`, { transports: ['websocket'] });
-
+    // setCode(e.target.value);
     socket.emit('codeChange', { data: e.target.value });
   };
 
