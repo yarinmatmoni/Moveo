@@ -65,6 +65,7 @@ function CodeBlockPage({ codeBlock }: any) {
           padding={25}
           className={style.codeEditor}
           readOnly={users === 1}
+          rows={800}
         />
       </>
       }
