@@ -62,10 +62,12 @@ function CodeBlockPage({ codeBlock }: any) {
           value={code}
           language="js"
           onChange={handleCodeChange}
-          padding={25}
           className={style.codeEditor}
           readOnly={users === 1}
-          rows={800}
+          padding={25}
+          style={{
+            fontFamily: 'Poppins',
+          }}
         />
       </>
       }
