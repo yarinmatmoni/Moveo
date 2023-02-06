@@ -9,7 +9,7 @@ export default function Home() {
   const [codeBlockList, setCodeBlockList] = useState<BlockCodeType[]>([]);
 
   const getCodeBlockList = async () => {
-    const codeBlockListResponse = await fetch(`${getServerUrl()}/codeBlocks`);
+    const codeBlockListResponse = await fetch(`${getServerUrl()}`);
     if (codeBlockListResponse.ok) {
       const codeBlockListBody = await codeBlockListResponse.json();
       setCodeBlockList(codeBlockListBody?.data);

@@ -17,6 +17,9 @@ app.use(bodyParser.json());
 
 initialDB();
 
+const indexRouter = require('./routes/indexRoutes');
+app.use('/', indexRouter);
+
 const codeBlockRouter = require('./routes/codeBlockRoutes');
 app.use('/codeBlocks', codeBlockRouter);
 
