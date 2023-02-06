@@ -26,7 +26,7 @@ function CodeBlockPage({ codeBlock }: any) {
   const [users, setUsers] = useState<number>();
 
   useEffect(() => {
-    const socket = io('wss://moveo-frontend-6g7yarr26-yarinmatmoni.vercel.app', { transports: ['websocket'] });
+    const socket = io('https://moveo-frontend-6g7yarr26-yarinmatmoni.vercel.app', { transports: ['websocket'] });
 
     socket.on('clientsCounter', (data: number) => {
       setUsers(data);
@@ -44,7 +44,7 @@ function CodeBlockPage({ codeBlock }: any) {
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newCode = e.target.value;
     setCode(newCode);
-    const socket = io('wss://moveo-frontend-6g7yarr26-yarinmatmoni.vercel.app', { transports: ['websocket'] });
+    const socket = io('https://moveo-frontend-6g7yarr26-yarinmatmoni.vercel.app', { transports: ['websocket'] });
     socket.emit('codeChange', { data: e.target.value });
   };
 
