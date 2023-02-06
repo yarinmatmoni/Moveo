@@ -24,7 +24,9 @@ export default function Home() {
   return (
     <div className={style.lobbyContainer}>
       <Header tabName={'Lobby'} title={'Lobby'} subTitle={'Choose code block'} />
-      <CodeBlockList data={codeBlockList} />
+      {codeBlockList ? <>
+        <CodeBlockList data={codeBlockList} />
+      </> : 'Loading... please wait'}
     </div>
   );
 }
