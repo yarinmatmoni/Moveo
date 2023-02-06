@@ -28,7 +28,7 @@ function CodeBlockPage({ codeBlock }: any) {
 
   useEffect(() => {
     const socketUrl = getServerUrl();
-    const socket = io(`${socketUrl}`, { transports: ['websocket'] });
+    const socket = io(`${socketUrl}`, { upgrade: false, transports: ['websocket'] });
 
     socket.on('clientsCounter', (data: number) => {
       setUsers(data);
@@ -45,7 +45,7 @@ function CodeBlockPage({ codeBlock }: any) {
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const socketUrl = getServerUrl();
-    const socket = io(`${socketUrl}`, { transports: ['websocket'] });
+    const socket = io(`${socketUrl}`, { upgrade: false, transports: ['websocket'] });
 
     socket.emit('codeChange', { data: e.target.value });
   };
