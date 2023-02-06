@@ -50,7 +50,6 @@ function CodeBlockPage({ codeBlock }: any) {
     socket.emit('codeChange', { data: e.target.value });
   };
 
-
   return (
     <div className={style.codeBlockPage}>
       {users !== 0 && <>
