@@ -10,7 +10,7 @@ const CodeEditor = dynamic(() => import('@uiw/react-textarea-code-editor').then(
 
 export async function getServerSideProps(context: any) {
   const { params } = context;
-  const response = await fetch(`${getServerUrl()}/codeBlocks/${params.id}`);
+  const response = await fetch(`https://moveoproject-trhr.onrender.com/codeBlocks/${params.id}`);
   const data = await response.json();
 
   // will be passed to the page component as props
