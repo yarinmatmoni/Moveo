@@ -58,13 +58,18 @@ function CodeBlockPage({ codeBlock }: any) {
         title={codeBlock.title}
         subTitle={`${users === 1 ? 'Mentor' : 'Student'} Panel`}
       ></Header>
-      <CodeEditor
+      {/* <CodeEditor
         value={code}
         language="js"
         onChange={handleCodeChange}
         padding={25}
         className={style.codeEditor}
         readOnly={users === 1}
+      /> */}
+      <textarea value={code}
+        className={style.codeEditor}
+        readOnly={users === 1}
+        onChange={handleCodeChange}
       />
     </div>
   );
