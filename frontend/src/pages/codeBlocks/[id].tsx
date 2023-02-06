@@ -10,7 +10,8 @@ const CodeEditor = dynamic(() => import('@uiw/react-textarea-code-editor').then(
 
 export async function getServerSideProps(context: any) {
   const { params } = context;
-  const response = await fetch(`https://moveoproject-trhr.onrender.com/codeBlocks/${params.id}`);
+  const serverUrl = getServerUrl();
+  const response = await fetch(`${serverUrl}/codeBlocks/${params.id}`);
   const data = await response.json();
 
   // will be passed to the page component as props
@@ -26,7 +27,8 @@ function CodeBlockPage({ codeBlock }: any) {
   const [users, setUsers] = useState<number>();
 
   useEffect(() => {
-    const socket = io('https://moveoproject-trhr.onrender.com/', { transports: ['websocket'] });
+    const socketUrl = getServerUrl();
+    const socket = io(`${socketUrl}`, { transports: ['websocket'] });
 
     socket.on('clientsCounter', (data: number) => {
       setUsers(data);
@@ -44,7 +46,8 @@ function CodeBlockPage({ codeBlock }: any) {
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newCode = e.target.value;
     setCode(newCode);
-    const socket = io('https://moveoproject-trhr.onrender.com/', { transports: ['websocket'] });
+    const socketUrl = getServerUrl();
+    const socket = io(`${socketUrl}`, { transports: ['websocket'] });
     socket.emit('codeChange', { data: e.target.value });
   };
 
