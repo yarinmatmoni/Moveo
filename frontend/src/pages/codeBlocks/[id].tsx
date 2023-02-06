@@ -30,12 +30,12 @@ function CodeBlockPage({ codeBlock }: any) {
     const socketUrl = getServerUrl();
     const socket = io(`${socketUrl}`, { upgrade: false, transports: ['websocket'] });
 
-    socket.on('clientsCounter', (data: number) => {
+    socket.on('clientsCounter', (data) => {
       setUsers(data);
     });
 
-    socket.on('sendEditCode', (data: string) => {
-      setCode(data);
+    socket.on('sendEditCode', (data) => {
+      setCode(data)
     });
 
     return () => {
@@ -44,10 +44,12 @@ function CodeBlockPage({ codeBlock }: any) {
   }, []);
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const newCode = e.target.value;
+    setCode(newCode);
     const socketUrl = getServerUrl();
     const socket = io(`${socketUrl}`, { upgrade: false, transports: ['websocket'] });
 
-    socket.emit('codeChange', { data: e.target.value });
+    socket.emit("codeChange", newCode);
   };
 
   return (

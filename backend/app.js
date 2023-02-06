@@ -29,12 +29,12 @@ io.on('connection', (socket) => {
 	numOfClients += 1;
 	socket.emit('clientsCounter', numOfClients);
 
-	socket.on('disconnect', () => {
-		numOfClients -= 1;
+	socket.on('codeChange', (data) => {
+		io.emit('sendEditCode', data);
 	});
 
-	socket.on('codeChange', (data) => {
-		io.emit('sendEditCode', data.data);
+	socket.on('disconnect', () => {
+		numOfClients -= 1;
 	});
 });
 
