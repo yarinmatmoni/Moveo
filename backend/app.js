@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 initialDB();
 
 const codeBlockRouter = require('./routes/codeBlockRoutes');
-app.use('/', codeBlockRouter);
+app.use('/codeBlocks', codeBlockRouter);
 
 let numOfClients = 0;
 
