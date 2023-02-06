@@ -44,11 +44,13 @@ function CodeBlockPage({ codeBlock }: any) {
   }, []);
 
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const newCode = e.target.value;
-    setCode(newCode);
     const socketUrl = getServerUrl();
     const socket = io(`${socketUrl}`, { transports: ['websocket'] });
-    socket.emit('codeChange', { data: e.target.value });
+    if (socket) {
+      const newCode = e.target.value;
+      setCode(newCode);
+      socket.emit('codeChange', { data: e.target.value });
+    }
   };
 
   return (
