@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const CodeBlock = require("../controllers/blockCode");
+const CodeBlock = require('../controllers/blockCode');
 
-router.get("/", CodeBlock.getCodeBlocksList);
+router.get('/', CodeBlock.getCodeBlocksList);
 
-router.get("/:id", CodeBlock.getCodeBlockById);
+router.get('/:id', CodeBlock.getCodeBlockById);
 
 module.exports = router;
