@@ -9,7 +9,7 @@ export default function Home() {
   const [codeBlockList, setCodeBlockList] = useState<BlockCodeType[]>([]);
 
   const getCodeBlockList = async () => {
-    const codeBlockListResponse = await fetch(`${getServerUrl()}`);
+    const codeBlockListResponse = await fetch(`https://moveoproject-trhr.onrender.com/`);
     if (codeBlockListResponse.ok) {
       const codeBlockListBody = await codeBlockListResponse.json();
       setCodeBlockList(codeBlockListBody?.data);
